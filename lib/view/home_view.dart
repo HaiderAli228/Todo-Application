@@ -34,16 +34,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       backgroundColor: Colors.white,
-      body: dbRef.getTheDatabase() != null
-          ? ListView.builder(
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text("data"),
-                  trailing: Icon(Icons.check_box_outline_blank),
-                );
-              },
-            )
-          : Text("No Task Found"),
+      body:
     );
   }
 }

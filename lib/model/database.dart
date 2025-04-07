@@ -38,6 +38,14 @@ class DatabaseHelper {
     );
   }
 
+  Future<List<Map<String, dynamic>>> fetAddTodo() async {
+    final dbRef = await getTheDatabase();
+    List<Map<String, dynamic>> fetAllTodos = await dbRef.query(
+      tableName,
+    );
+    return fetAllTodos;
+  }
+
   Future<bool> addTodo({
     int? reminder,
     required String titleIs,
@@ -80,5 +88,17 @@ class DatabaseHelper {
       print("Error in updating the todo $e");
       return false;
     }
+  }
+
+  Future<bool> deleteTodo({
+    required int sNo,
+  }) async {
+    final dbRef = await getTheDatabase();
+    int rowEffected = await dbRef.delete(
+      tableName,
+      where: "$firstColSerNo = ?",
+      whereArgs: [sNo],
+    );
+    return rowEffected > 0;
   }
 }
