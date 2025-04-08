@@ -32,14 +32,12 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 0,
+        centerTitle: true,
+        backgroundColor: AppColors.themeColor,
         title: Text(
           "Todo App",
           style: TextStyle(
-              color: Colors.white,
-              backgroundColor: AppColors.themeColor,
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
       backgroundColor: Colors.white,
