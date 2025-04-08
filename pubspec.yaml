@@ -38,6 +38,7 @@ dependencies:
   path_provider:
   sqflite:
   path:
+  intl:
   shared_preferences:
 
 dev_dependencies:
