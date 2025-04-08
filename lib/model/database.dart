@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:todo/model/todo_model.dart';
 
 class DatabaseHelper {
   DatabaseHelper._();
@@ -38,12 +39,21 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<Map<String, dynamic>>> fetAddTodo() async {
+  Future<List<TodoModel>> fetchAddTodo() async {
     final dbRef = await getTheDatabase();
-    List<Map<String, dynamic>> fetAllTodos = await dbRef.query(
-      tableName,
+    final maps = await dbRef.query(tableName);
+    return List.generate(
+      maps.length,
+      (index) {
+        return TodoModel.fromMap({
+          "id": maps[index][firstColSerNo],
+          'title': maps[index][secondColTitle],
+          'priority': maps[index][fourthColPriority],
+          'reminder_time': maps[index][thirdColReminder],
+          'status': maps[index][fifthColStatus],
+        });
+      },
     );
-    return fetAllTodos;
   }
 
   Future<bool> addTodo({
