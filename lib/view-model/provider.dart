@@ -11,7 +11,7 @@ class NotesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> addNotes(
+  Future<bool> addProviderNotes(
     String title,
     String priority,
     int? reminder,
@@ -21,4 +21,5 @@ class NotesProvider extends ChangeNotifier {
     if (success) await loadTodo();
     return success;
   }
+
 }
