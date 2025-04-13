@@ -33,4 +33,10 @@ class NotesProvider extends ChangeNotifier {
     if (success) await loadTodo();
     return success;
   }
+
+  Future<bool> deleteNotes(int id) async {
+    bool success = await DatabaseHelper.instance.deleteTodo(sNo: id);
+    if (success) await loadTodo();
+    return success;
+  }
 }
