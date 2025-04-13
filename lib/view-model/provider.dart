@@ -22,4 +22,15 @@ class NotesProvider extends ChangeNotifier {
     return success;
   }
 
+  Future<bool> updateProviderNotes(
+    int id,
+    String title,
+    String priority,
+    int? reminder,
+  ) async {
+    bool success = await DatabaseHelper.instance.updateTodo(
+        sNo: id, titleIs: title, reminder: reminder, priorityIs: priority);
+    if (success) await loadTodo();
+    return success;
+  }
 }
