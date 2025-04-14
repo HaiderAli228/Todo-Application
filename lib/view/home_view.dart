@@ -79,11 +79,15 @@ class _HomeViewState extends State<HomeView> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.themeColor,
         onPressed: () {
-          Navigator.push(
+          Navigator.push<bool>(
               context,
               MaterialPageRoute(
                 builder: (context) => AddTodoScreen(),
-              ));
+              )).then((saved) {
+            if (saved == true) {
+              _loadTodos(); // triggers setState -> FutureBuilder reload
+            }
+          });
         },
         child: Icon(
           Icons.add,

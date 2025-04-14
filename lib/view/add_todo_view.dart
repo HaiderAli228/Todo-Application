@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/model/database.dart';
 
 import '../utlis/app_color.dart';
+import '../view-model/provider.dart';
 
 class AddTodoScreen extends StatefulWidget {
   const AddTodoScreen({super.key});
@@ -57,10 +59,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
 
   Future<void> _saveTodo() async {
     if (!_formKey.currentState!.validate()) return;
-
-    bool success = await dbHelper.addTodo(
-      titleIs: _titleController.text.trim(),
-      priorityIs: _selectedPriority,
+    final provider = context.read<NotesProvider>();
+    bool success = await provider.addProviderNotes(
+      title: _titleController.text.trim(),
+      priority: _selectedPriority,
       reminder: _selectedDateTime?.millisecondsSinceEpoch,
     );
 
@@ -93,8 +95,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                   labelText: 'Title',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) =>
-                (value == null || value.trim().isEmpty)
+                validator: (value) => (value == null || value.trim().isEmpty)
                     ? 'Please enter a title'
                     : null,
               ),
@@ -105,9 +106,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 value: _selectedPriority,
                 items: ['Low', 'Medium', 'High']
                     .map((p) => DropdownMenuItem(
-                  value: p,
-                  child: Text(p),
-                ))
+                          value: p,
+                          child: Text(p),
+                        ))
                     .toList(),
                 onChanged: (val) {
                   if (val != null) {
@@ -133,7 +134,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                     _selectedDateTime == null
                         ? 'Tap to select date & time'
                         : DateFormat('yyyy-MM-dd – HH:mm')
-                        .format(_selectedDateTime!),
+                            .format(_selectedDateTime!),
                   ),
                 ),
               ),

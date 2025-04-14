@@ -11,11 +11,11 @@ class NotesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> addProviderNotes(
-    String title,
-    String priority,
+  Future<bool> addProviderNotes({
+    required String title,
+    required String priority,
     int? reminder,
-  ) async {
+  }) async {
     bool success = await DatabaseHelper.instance
         .addTodo(titleIs: title, reminder: reminder, priorityIs: priority);
     if (success) await loadTodo();
